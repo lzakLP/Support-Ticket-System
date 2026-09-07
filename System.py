@@ -1,5 +1,3 @@
-## System Skeleton
-
 tickets = []
 proximo_id = 1
 
@@ -37,18 +35,43 @@ def buscar_ticket(id_ticket):
 
 
 def atualizar_ticket(id_ticket, novo_status):
-    ticket = buscar_ticket(id_ticket)
+    status_validos = ["open", "in_progress", "closed"]
 
-    if ticket is not None:
-        ticket["status"] = novo_status
+
+    if novo_status in status_validos:
+         ticket = buscar_ticket(id_ticket)
+         
+         
+         if ticket is not None:
+             ticket["status"] = novo_status
+
+         else:
+             print("Ticket não encontrado")
+             print("---------------------")
+         
+   
     else:
-        print("Ticket não encontrado")
+     print("Status Inválido")
+     print("---------------")
+     
+     
+def excluir_ticket(id_ticket):
+    ticket = buscar_ticket(id_ticket)
+    
+    if ticket is not None:
+         tickets.remove(ticket)
+         print("Ticket Excluído")
+         print("---------------")
+
+    else:
+         print("Ticket não encontrado")
+         print("---------------------")
 
 
 criar_ticket("PC não liga", "Sem sinal de energia")
 criar_ticket("Impressora não funciona", "Papel preso no equipamento")
 
-atualizar_ticket(1, "closed")
+atualizar_ticket(89, "closed")
+excluir_ticket(1)
 
 listar_ticket()
-
