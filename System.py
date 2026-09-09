@@ -15,6 +15,7 @@ def criar_ticket(title, description):
 
     proximo_id += 1
 
+
 def listar_ticket():
     for ticket in tickets:
         print(f'ID: {ticket["id"]}')
@@ -23,6 +24,7 @@ def listar_ticket():
         print(f'Status: {ticket["status"]}')
         print("----------------------------")
 
+
 def buscar_ticket(id_ticket):
     for ticket in tickets:
         if ticket["id"] == id_ticket:
@@ -30,42 +32,95 @@ def buscar_ticket(id_ticket):
 
     return None
 
+
 def atualizar_ticket(id_ticket, novo_status):
     status_validos = ["open", "in_progress", "closed"]
 
     if novo_status in status_validos:
-         ticket = buscar_ticket(id_ticket)
-         
-         
-         if ticket is not None:
-             ticket["status"] = novo_status
+        ticket = buscar_ticket(id_ticket)
 
-         else:
-             print("Ticket não encontrado")
-             print("---------------------")
-         
+        if ticket is not None:
+            ticket["status"] = novo_status
+
+        else:
+            print("Ticket não encontrado")
+            print("---------------------")
+
     else:
-     print("Status Inválido")
-     print("---------------")
-     
-     
+        print("Status Inválido")
+        print("---------------")
+
+
 def excluir_ticket(id_ticket):
     ticket = buscar_ticket(id_ticket)
-    
+
     if ticket is not None:
-         tickets.remove(ticket)
-         print("Ticket Excluído")
-         print("---------------")
+        tickets.remove(ticket)
+        print("Ticket Excluído")
+        print("---------------")
 
     else:
-         print("Ticket não encontrado")
-         print("---------------------")
+        print("Ticket não encontrado")
+        print("---------------------")
+
+def return_to_menu():
+    while True:
+
+        option = int(input("Enter 0 to return to the menu: "))
+
+        if option == 0:
+            break
 
 
-criar_ticket("PC não liga", "Sem sinal de energia")
-criar_ticket("Impressora não funciona", "Papel preso no equipamento")
+executando = True
 
-atualizar_ticket(1, "open")
-excluir_ticket(1)
+while executando:
+    print("============================")
+    print("   Support Ticket System")
+    print("============================")
+    print("1 - Criar ticket")
+    print("2 - Listar tickets")
+    print("3 - Buscar ticket")
+    print("4 - Atualizar ticket")
+    print("5 - Excluir ticket")
+    print("0 - Sair")
+    print("============================")
+    
+    opcao = int(input("Escolha uma opção: "))
+    
 
-listar_ticket()
+
+    if opcao == 1:
+        print("==========================")
+        title = input("Digite o título do ticket: ")
+        description = input("Digite a descrição do ticket: ")
+
+        criar_ticket(title, description)
+        
+        return_to_menu()
+
+    elif opcao == 2:
+        listar_ticket()
+        
+        return_to_menu()
+    
+
+    elif opcao == 3:
+        id_ticket = int(input("Digite o ID do ticket: "))
+
+        ticket = buscar_ticket(id_ticket)
+
+        if ticket is not None:
+            print(f'ID: {ticket["id"]}')
+            print(f'Title: {ticket["title"]}')
+            print(f'Description: {ticket["description"]}')
+            print(f'Status: {ticket["status"]}')
+            print("----------------------------")
+        else:
+            print("Ticket não encontrado")
+        
+        return_to_menu()
+        
+
+    elif opcao == 0:
+        executando = False
