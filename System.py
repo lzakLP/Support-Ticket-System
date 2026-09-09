@@ -1,7 +1,6 @@
 tickets = []
 proximo_id = 1
 
-
 def criar_ticket(title, description):
     global proximo_id
 
@@ -16,7 +15,6 @@ def criar_ticket(title, description):
 
     proximo_id += 1
 
-
 def listar_ticket():
     for ticket in tickets:
         print(f'ID: {ticket["id"]}')
@@ -25,7 +23,6 @@ def listar_ticket():
         print(f'Status: {ticket["status"]}')
         print("----------------------------")
 
-
 def buscar_ticket(id_ticket):
     for ticket in tickets:
         if ticket["id"] == id_ticket:
@@ -33,10 +30,8 @@ def buscar_ticket(id_ticket):
 
     return None
 
-
 def atualizar_ticket(id_ticket, novo_status):
     status_validos = ["open", "in_progress", "closed"]
-
 
     if novo_status in status_validos:
          ticket = buscar_ticket(id_ticket)
@@ -49,7 +44,6 @@ def atualizar_ticket(id_ticket, novo_status):
              print("Ticket não encontrado")
              print("---------------------")
          
-   
     else:
      print("Status Inválido")
      print("---------------")
@@ -71,7 +65,7 @@ def excluir_ticket(id_ticket):
 criar_ticket("PC não liga", "Sem sinal de energia")
 criar_ticket("Impressora não funciona", "Papel preso no equipamento")
 
-atualizar_ticket(89, "closed")
+atualizar_ticket(1, "open")
 excluir_ticket(1)
 
 listar_ticket()
