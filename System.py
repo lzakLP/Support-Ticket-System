@@ -92,7 +92,13 @@ while executando:
     print("0 - Sair")
     print("============================")
     
-    opcao = int(input("Escolha uma opção: "))
+    
+    try:
+         opcao = int(input("Escolha uma opção: "))
+     
+    
+    except ValueError:
+         print("Opção Inválida")
     
 
 
@@ -133,6 +139,11 @@ while executando:
         novo_status = int(input("Digite o novo Status: "))
         
         atualizar_ticket(id_ticket, novo_status)
+        
+    elif opcao == 5:
+        id_ticket = int(input("Digite o ID do Ticket: "))
+        
+        excluir_ticket(id_ticket)
 
     elif opcao == 0:
         executando = False
