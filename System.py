@@ -1,6 +1,7 @@
 tickets = []
 proximo_id = 1
 
+
 def criar_ticket(title, description):
     global proximo_id
 
@@ -43,12 +44,14 @@ def atualizar_ticket(id_ticket, novo_status):
             ticket["status"] = novo_status
 
         else:
+            print("---------------------")
             print("Ticket não encontrado")
             print("---------------------")
 
     else:
-        print("Status Inválido")
-        print("---------------")
+        print("------------------")
+        print(" Status Inválido")
+        print("------------------")
 
 
 def excluir_ticket(id_ticket):
@@ -56,12 +59,15 @@ def excluir_ticket(id_ticket):
 
     if ticket is not None:
         tickets.remove(ticket)
+        print("---------------")
         print("Ticket Excluído")
         print("---------------")
 
     else:
+        print("---------------------")
         print("Ticket não encontrado")
         print("---------------------")
+        
 
 def return_to_menu():
     while True:
@@ -121,6 +127,12 @@ while executando:
         
         return_to_menu()
         
+        
+    elif opcao == 4:
+        id_ticket = int(input("Digite o ID do Ticket: "))
+        novo_status = int(input("Digite o novo Status: "))
+        
+        atualizar_ticket(id_ticket, novo_status)
 
     elif opcao == 0:
         executando = False
