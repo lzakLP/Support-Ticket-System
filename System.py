@@ -139,7 +139,6 @@ while executando:
             print("Ticket não encontrado")
         
 
-
         return_to_menu()
         
         
@@ -150,7 +149,13 @@ while executando:
         atualizar_ticket(id_ticket, novo_status)
         
     elif opcao == 5:
-        id_ticket = int(input("Digite o ID do Ticket: "))
+        try:
+            id_ticket = int(input("Digite o ID do Ticket: "))
+
+        except ValueError:
+            print("ID Inválido. Digite um número inteiro: ")
+
+        continue
         
         excluir_ticket(id_ticket)
 
