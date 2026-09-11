@@ -99,7 +99,8 @@ while executando:
     
     except ValueError:
          print("Opção Inválida")
-    
+         
+         continue
 
 
     if opcao == 1:
@@ -118,7 +119,15 @@ while executando:
     
 
     elif opcao == 3:
-        id_ticket = int(input("Digite o ID do ticket: "))
+        try:
+            id_ticket = int(input("Digite o ID do ticket: "))
+            
+        except ValueError:
+            print("ID Inválido. Digite um número inteiro: ")
+            
+            continue
+        
+        id_ticket == int(input("ID Inválido. Digite um número inteiro: "))
 
         ticket = buscar_ticket(id_ticket)
 
@@ -131,12 +140,14 @@ while executando:
         else:
             print("Ticket não encontrado")
         
+
+
         return_to_menu()
         
         
     elif opcao == 4:
         id_ticket = int(input("Digite o ID do Ticket: "))
-        novo_status = int(input("Digite o novo Status: "))
+        novo_status = input("Digite o novo Status: ")
         
         atualizar_ticket(id_ticket, novo_status)
         
