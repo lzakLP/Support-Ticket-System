@@ -126,8 +126,6 @@ while executando:
             print("ID Inválido. Digite um número inteiro: ")
             
             continue
-        
-        id_ticket == int(input("ID Inválido. Digite um número inteiro: "))
 
         ticket = buscar_ticket(id_ticket)
 
