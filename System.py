@@ -68,15 +68,16 @@ def excluir_ticket(id_ticket):
         print("Ticket não encontrado")
         print("---------------------")
         
-
 def return_to_menu():
-    while True:
+   while True:
+       try:
+          option = int(input("Enter 0 to return to the menu: "))
 
-        option = int(input("Enter 0 to return to the menu: "))
+       except ValueError:
+          print("Comando Inválido. Tente novamente: ")
 
-        if option == 0:
-            break
-
+       if option == 0:
+          break
 
 executando = True
 
@@ -143,9 +144,15 @@ while executando:
         
         
     elif opcao == 4:
-        id_ticket = int(input("Digite o ID do Ticket: "))
-        novo_status = input("Digite o novo Status: ")
+        try:
+            id_ticket = int(input("Digite o ID do Ticket: "))
+            
+        except ValueError:
+            print("ID Inválido. Digite um número inteiro: ")
+      
+            continue    
         
+        novo_status = input("open, in_progress, closed")
         atualizar_ticket(id_ticket, novo_status)
         
     elif opcao == 5:
@@ -155,9 +162,9 @@ while executando:
         except ValueError:
             print("ID Inválido. Digite um número inteiro: ")
 
-        continue
+            continue
         
         excluir_ticket(id_ticket)
-
+        
     elif opcao == 0:
         executando = False
