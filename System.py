@@ -5,6 +5,10 @@ proximo_id = 1
 def criar_ticket(title, description):
     global proximo_id
 
+    if not title.strip():
+        print("Um título é obrigatório")
+        return
+
     ticket = {
         "id": proximo_id,
         "title": title,
@@ -50,7 +54,7 @@ def atualizar_ticket(id_ticket, novo_status):
 
     else:
         print("------------------")
-        print(" Status Inválido")
+        print("Status Inválido")
         print("------------------")
 
 
@@ -67,42 +71,42 @@ def excluir_ticket(id_ticket):
         print("---------------------")
         print("Ticket não encontrado")
         print("---------------------")
-        
+
+
 def return_to_menu():
-   while True:
-       try:
-          option = int(input("Enter 0 to return to the menu: "))
+    while True:
+        try:
+            option = int(input("Enter 0 to return to the menu: "))
 
-       except ValueError:
-          print("Comando Inválido. Tente novamente: ")
+        except ValueError:
+            print("Comando Inválido. Tente novamente: ")
+            continue
 
-       if option == 0:
-          break
+        if option == 0:
+            break
+
 
 executando = True
 
 while executando:
-    print("============================")
-    print("   Support Ticket System")
-    print("============================")
-    print("1 - Criar ticket")
-    print("2 - Listar tickets")
-    print("3 - Buscar ticket")
-    print("4 - Atualizar ticket")
-    print("5 - Excluir ticket")
-    print("0 - Sair")
-    print("============================")
-    
-    
-    try:
-         opcao = int(input("Escolha uma opção: "))
-     
-    
-    except ValueError:
-         print("Opção Inválida")
-         
-         continue
+    print("\n" + "=" * 42)
+    print("         SISTEMA DE CHAMADOS")
+    print("=" * 42)
+    print("  1 - Criar ticket")
+    print("  2 - Listar tickets")
+    print("  3 - Buscar ticket por ID")
+    print("  4 - Atualizar status")
+    print("  5 - Excluir ticket")
+    print("-" * 42)
+    print("  0 - Sair")
+    print("=" * 42)
 
+    try:
+        opcao = int(input("Escolha uma opção: "))
+
+    except ValueError:
+        print("Opção inválida.")
+        continue
 
     if opcao == 1:
         print("==========================")
@@ -110,22 +114,20 @@ while executando:
         description = input("Digite a descrição do ticket: ")
 
         criar_ticket(title, description)
-        
+
         return_to_menu()
 
     elif opcao == 2:
         listar_ticket()
-        
+
         return_to_menu()
-    
 
     elif opcao == 3:
         try:
             id_ticket = int(input("Digite o ID do ticket: "))
-            
+
         except ValueError:
             print("ID Inválido. Digite um número inteiro: ")
-            
             continue
 
         ticket = buscar_ticket(id_ticket)
@@ -136,35 +138,35 @@ while executando:
             print(f'Description: {ticket["description"]}')
             print(f'Status: {ticket["status"]}')
             print("----------------------------")
+
         else:
             print("Ticket não encontrado")
-        
 
         return_to_menu()
-        
-        
+
     elif opcao == 4:
         try:
             id_ticket = int(input("Digite o ID do Ticket: "))
-            
+
         except ValueError:
             print("ID Inválido. Digite um número inteiro: ")
-      
-            continue    
-        
-        novo_status = input("open, in_progress, closed")
+            continue
+
+        novo_status = input(
+            "Digite o novo status (open, in_progress, closed): "
+        )
+
         atualizar_ticket(id_ticket, novo_status)
-        
+
     elif opcao == 5:
         try:
             id_ticket = int(input("Digite o ID do Ticket: "))
 
         except ValueError:
             print("ID Inválido. Digite um número inteiro: ")
-
             continue
-        
+
         excluir_ticket(id_ticket)
-        
+
     elif opcao == 0:
         executando = False
