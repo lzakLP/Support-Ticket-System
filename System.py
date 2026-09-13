@@ -20,7 +20,6 @@ def criar_ticket(title, description):
 
     proximo_id += 1
 
-
 def listar_ticket():
     for ticket in tickets:
         print(f'ID: {ticket["id"]}')
@@ -29,14 +28,12 @@ def listar_ticket():
         print(f'Status: {ticket["status"]}')
         print("----------------------------")
 
-
 def buscar_ticket(id_ticket):
     for ticket in tickets:
         if ticket["id"] == id_ticket:
             return ticket
 
     return None
-
 
 def atualizar_ticket(id_ticket, novo_status):
     status_validos = ["open", "in_progress", "closed"]
@@ -72,7 +69,6 @@ def excluir_ticket(id_ticket):
         print("Ticket não encontrado")
         print("---------------------")
 
-
 def return_to_menu():
     while True:
         try:
@@ -84,7 +80,6 @@ def return_to_menu():
 
         if option == 0:
             break
-
 
 executando = True
 
