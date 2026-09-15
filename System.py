@@ -1,7 +1,6 @@
 tickets = []
 proximo_id = 1
 
-
 def criar_ticket(title, description):
     global proximo_id
 
