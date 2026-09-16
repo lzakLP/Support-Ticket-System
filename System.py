@@ -30,7 +30,7 @@ def listar_ticket():
         print(f'Description: {ticket["description"]}')
         print(f'Status: {ticket["status"]}')
         print("----------------------------")
--
+
 def buscar_ticket(id_ticket):
     for ticket in tickets:
         if ticket["id"] == id_ticket:
