@@ -39,6 +39,7 @@ def buscar_ticket(id_ticket):
     return None
 
 def atualizar_ticket(id_ticket, novo_status):
+
     status_validos = ["open", "in_progress", "closed"]
 
     if novo_status in status_validos:
@@ -150,9 +151,7 @@ while executando:
             print("ID Inválido. Digite um número inteiro: ")
             continue
 
-        novo_status = input(
-            "Digite o novo status (open, in_progress, closed): "
-        )
+        novo_status = input("Digite o novo status (open, in_progress, closed): ").strip().lower()
 
         atualizar_ticket(id_ticket, novo_status)
 
