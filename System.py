@@ -7,6 +7,10 @@ def criar_ticket(title, description):
     if not title.strip():
         print("Um título é obrigatório")
         return
+        
+    if not description.strip():
+        print("Uma descrição é obrigatória")
+        return
 
     ticket = {
         "id": proximo_id,
@@ -26,7 +30,7 @@ def listar_ticket():
         print(f'Description: {ticket["description"]}')
         print(f'Status: {ticket["status"]}')
         print("----------------------------")
-
+-
 def buscar_ticket(id_ticket):
     for ticket in tickets:
         if ticket["id"] == id_ticket:
