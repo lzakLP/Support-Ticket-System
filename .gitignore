@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local support-ticket database and SQLite sidecar files
+tickets.db
+tickets.db-journal
+tickets.db-wal
+tickets.db-shm

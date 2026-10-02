@@ -1,96 +1,86 @@
 """
-Sistema de chamados pelo terminal, permite: 
-------------------------------------------------
-
- -Criar chamados;
- -Consultar chamados;
- -Atualizar chamados;
- -Excluir chamados.
- 
-------------------------------------------------
-As funções validam e manipulam os dados; 
-O menu recebe as entradas e exibe os resultados.
-
-__________________________________________________
+Terminal-based ticket management: create, read, update, and delete tickets.
+Functions manage in-memory data; the menu handles input and output.
+This introductory version loses its tickets when the process exits.
 """
 tickets = []
-proximo_id = 1
-STATUS_VALIDOS = ["open", "in_progress", "closed"]
+next_id = 1
+VALID_STATUSES = ["open", "in_progress", "closed"]
 
 
-def criar_ticket(title, description):
-    global proximo_id
+def create_ticket(title, description):
+    global next_id
 
     title = title.strip()
     description = description.strip()
 
     if not title:
-        raise ValueError("O título é obrigatório.")
+        raise ValueError("A title is required.")
     if not description:
-        raise ValueError("A descrição é obrigatória.")
+        raise ValueError("A description is required.")
 
     ticket = {
-        "id": proximo_id,
+        "id": next_id,
         "title": title,
         "description": description,
         "status": "open",
     }
 
     tickets.append(ticket)
-    proximo_id += 1
+    next_id += 1
     return ticket
 
 
-def listar_tickets():
+def list_tickets():
     return tickets.copy()
 
 
-def buscar_ticket(id_ticket):
+def get_ticket(ticket_id):
     for ticket in tickets:
-        if ticket["id"] == id_ticket:
+        if ticket["id"] == ticket_id:
             return ticket
 
     return None
 
 
-def atualizar_ticket(id_ticket, novo_status):
-    novo_status = novo_status.strip().lower()
+def update_ticket(ticket_id, new_status):
+    new_status = new_status.strip().lower()
 
-    if novo_status not in STATUS_VALIDOS:
-        raise ValueError("Status inválido. Use open, in_progress ou closed.")
+    if new_status not in VALID_STATUSES:
+        raise ValueError("Invalid status. Use open, in_progress, or closed.")
 
-    ticket = buscar_ticket(id_ticket)
+    ticket = get_ticket(ticket_id)
 
     if ticket is None:
-        raise ValueError("Chamado não encontrado.")
+        raise ValueError("Ticket not found.")
 
-    ticket["status"] = novo_status
+    ticket["status"] = new_status
     return ticket
 
 
-def excluir_ticket(id_ticket):
-    ticket = buscar_ticket(id_ticket)
+def delete_ticket(ticket_id):
+    ticket = get_ticket(ticket_id)
 
     if ticket is None:
-        raise ValueError("Chamado não encontrado.")
+        raise ValueError("Ticket not found.")
 
     tickets.remove(ticket)
     return ticket
 
 
-# A partir daqui ficam as funções de interação com o terminal.
-def ler_inteiro(mensagem):
+# The following functions handle terminal interaction.
+def read_integer(message):
     while True:
         try:
-            return int(input(mensagem))
+            return int(input(message))
         except ValueError:
-            print("Entrada inválida. Digite um número inteiro.")
+            print("Invalid input. Enter an integer.")
 
 
-def exibir_ticket(ticket):
+def display_ticket(ticket):
     print(f'ID: {ticket["id"]}')
-    print(f'Título: {ticket["title"]}')
-    print(f'Descrição: {ticket["description"]}')
+    print(f'Title: {ticket["title"]}')
+    print(f'Description: {ticket["description"]}')
     print(f'Status: {ticket["status"]}')
     print("-" * 42)
 
@@ -98,72 +88,72 @@ def exibir_ticket(ticket):
 def main():
     while True:
         print("\n" + "=" * 42)
-        print("           SISTEMA DE CHAMADOS")
+        print("           SUPPORT TICKET SYSTEM")
         print("=" * 42)
-        print("1 - Criar chamado")
-        print("2 - Listar chamados")
-        print("3 - Buscar chamado por ID")
-        print("4 - Atualizar status")
-        print("5 - Excluir chamado")
-        print("0 - Sair")
+        print("1 - Create ticket")
+        print("2 - List tickets")
+        print("3 - Find ticket by ID")
+        print("4 - Update status")
+        print("5 - Delete ticket")
+        print("0 - Exit")
 
-        opcao = ler_inteiro("Escolha uma opção: ")
+        option = read_integer("Choose an option: ")
 
-        if opcao == 0:
-            print("Sistema encerrado.")
+        if option == 0:
+            print("System stopped.")
             break
 
         try:
-            if opcao == 1:
-                title = input("Título: ")
-                description = input("Descrição: ")
+            if option == 1:
+                title = input("Title: ")
+                description = input("Description: ")
 
-                ticket = criar_ticket(title, description)
+                ticket = create_ticket(title, description)
 
-                print(f'Chamado {ticket["id"]} criado com sucesso.')
+                print(f'Ticket {ticket["id"]} created successfully.')
 
-            elif opcao == 2:
-                chamados = listar_tickets()
+            elif option == 2:
+                stored_tickets = list_tickets()
 
-                if not chamados:
-                    print("Nenhum chamado cadastrado.")
+                if not stored_tickets:
+                    print("No tickets found.")
                 else:
-                    for ticket in chamados:
-                        exibir_ticket(ticket)
+                    for ticket in stored_tickets:
+                        display_ticket(ticket)
 
-            elif opcao == 3:
-                id_ticket = ler_inteiro("ID do chamado: ")
-                ticket = buscar_ticket(id_ticket)
+            elif option == 3:
+                ticket_id = read_integer("Ticket ID: ")
+                ticket = get_ticket(ticket_id)
 
                 if ticket is None:
-                    print("Chamado não encontrado.")
+                    print("Ticket not found.")
                 else:
-                    exibir_ticket(ticket)
+                    display_ticket(ticket)
 
-            elif opcao == 4:
-                id_ticket = ler_inteiro("ID do chamado: ")
-                novo_status = input(
-                    "Novo status (open, in_progress, closed): "
+            elif option == 4:
+                ticket_id = read_integer("Ticket ID: ")
+                new_status = input(
+                    "New status (open, in_progress, closed): "
                 )
 
-                ticket = atualizar_ticket(id_ticket, novo_status)
+                ticket = update_ticket(ticket_id, new_status)
 
                 print(
-                    f'Chamado {ticket["id"]} '
-                    f'atualizado para {ticket["status"]}.'
+                    f'Ticket {ticket["id"]} '
+                    f'updated to {ticket["status"]}.'
                 )
 
-            elif opcao == 5:
-                id_ticket = ler_inteiro("ID do chamado: ")
-                ticket = excluir_ticket(id_ticket)
+            elif option == 5:
+                ticket_id = read_integer("Ticket ID: ")
+                ticket = delete_ticket(ticket_id)
 
-                print(f'Chamado {ticket["id"]} excluído com sucesso.')
+                print(f'Ticket {ticket["id"]} deleted successfully.')
 
             else:
-                print("Opção inválida. Escolha um número de 0 a 5.")
+                print("Invalid option. Choose a number from 0 to 5.")
 
-        except ValueError as erro:
-            print(f"Erro: {erro}")
+        except ValueError as error:
+            print(f"Error: {error}")
 
 
 if __name__ == "__main__":
